@@ -15,42 +15,42 @@
         app:layout_constraintGuide_percent="0.41" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/rojo"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:backgroundTint="#D72B00"
-        android:text="ROJO"
+        android:text="@string/rojo"
         app:layout_constraintBottom_toTopOf="@+id/guideline6"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/verde"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="60dp"
         android:backgroundTint="#64DD17"
-        android:text="VERDE"
+        android:text="@string/verde"
         app:layout_constraintBottom_toTopOf="@+id/guideline6"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/amarillo"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:backgroundTint="#FFAB00"
-        android:text="AMARILLO"
+        android:text="@string/amarillo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline7" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/azul"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="60dp"
         android:backgroundTint="#304FFE"
-        android:text="AZUL"
+        android:text="@string/azul"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline7" />
 
@@ -62,13 +62,12 @@
         app:layout_constraintGuide_begin="206dp" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/jugar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="156dp"
         android:layout_marginBottom="176dp"
-        android:text="JUGAR
-"
+        android:text="@string/jugar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -90,6 +89,28 @@
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="84dp"
+        android:layout_marginEnd="52dp"
+        android:fontFamily="sans-serif"
+        android:text="Ronda"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- El jugador clicka el boton y se muestra la ronda-->
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="50dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="116dp"
+        android:layout_marginEnd="40dp"
+        android:text="1"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
