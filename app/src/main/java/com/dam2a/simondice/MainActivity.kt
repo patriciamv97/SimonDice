@@ -17,7 +17,12 @@ class MainActivity : AppCompatActivity() {
 
     // Inicicamos la ronda
     var ronda : Int = 0
-
+    // Asignamos el id de los botones a una variable
+    val empezarJugar: Button = findViewById(R.id.jugar)
+    val rojo :Button =findViewById(R.id.rojo)
+    val amarillo :Button =findViewById(R.id.amarillo)
+    val verde :Button =findViewById(R.id.verde)
+    val azul :Button =findViewById(R.id.azul)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -69,7 +74,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     suspend fun secuenciaBotones(){
-        var secuencia :Int =1
-
+        ronda++
+        var arrayBotones = hashMapOf<Int,Button>()
+        arrayBotones[0] = rojo
+        arrayBotones[1] = verde
+        arrayBotones[2] = amarillo
+        arrayBotones[3] = azul
+        var secuencia :Array <Int> = arrayOf()
+        for (i in 2..ronda) {
+            var random = (0 until 3).random()
+            secuencia = arrayOf(random)
+        }
     }
 }
