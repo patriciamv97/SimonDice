@@ -12,16 +12,24 @@ import kotlin.properties.Delegates
 
 class MainActivity : AppCompatActivity() {
 
+    // Inicicamos la ronda
+    var ronda : Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         //Asigno a la variable empezarJugar el id del boton jugar
         val empezarJugar: Button = findViewById(R.id.jugar)
+        val rojo :Button =findViewById(R.id.rojo)
+        val amarillo :Button =findViewById(R.id.amarillo)
+        val verde :Button =findViewById(R.id.verde)
+        val azul :Button =findViewById(R.id.azul)
+
         //Cuando clikas el botón se muestra la ronda
-        var ronda : Int =0
+
         empezarJugar.setOnClickListener {
-            print("a")
-            mostrarRonda(ronda , empezarJugar)
+
+            mostrarRonda(empezarJugar)
             ejecutarSecuencia()
 
         }
@@ -29,20 +37,26 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun mostrarRonda(ronda:Int , boton : Button) {
-        val Titulo : TextView = findViewById(R.id.titulo)
-        Titulo.visibility = TextView.VISIBLE
-        var Ronda : TextView = findViewById(R.id.ronda)
-        Ronda.visibility = TextView.VISIBLE
+    private fun mostrarRonda(boton : Button) {
+        //Asigamos a la variable tituloTexView el id del textView titulo
+        val tituloTextView : TextView = findViewById(R.id.titulo)
+        //Hacemos visible el titulo Ronda cuando el jugador pulsa jugar
+        tituloTextView.visibility = TextView.VISIBLE
+        // Asignamos el id del TQ   TextView ronda a la variable rondaTextView
+        var rondaTextView : TextView = findViewById(R.id.ronda)
+        //Hacemos visible el numero de la ronda cuando el jugador pulsa jugar
+        rondaTextView.visibility = TextView.VISIBLE
        // boton.visibility = TextView.INVISIBLE
-        var contador = ronda +1
-        print(contador)
-        Ronda.text = valueOf(contador)
-        Log.d("Estado", "Mostrando ronda")
+        //Incrementamos una unida la ronda cada vez que se ejecute el metodo mostrarRonda
+        ronda++
+        //Le enviamos la ronda incrementada al TextView para que se muestre
+        rondaTextView.text =ronda.toString()
+        Log.d("Estado", "Mostrando ronda " + ronda.toString())
     }
 
     private fun ejecutarSecuencia() {
         Log.d("Estado", "Ejecutando secuencia")
+
         Log.d("Estado", "Secuencia ejecutada")
         Toast.makeText(this, "repite la secuencia", Toast.LENGTH_SHORT).show()
     }
