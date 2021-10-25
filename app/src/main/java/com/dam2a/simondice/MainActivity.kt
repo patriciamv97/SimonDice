@@ -7,6 +7,9 @@ import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.lang.String.valueOf
 import kotlin.properties.Delegates
 
@@ -56,8 +59,17 @@ class MainActivity : AppCompatActivity() {
 
     private fun ejecutarSecuencia() {
         Log.d("Estado", "Ejecutando secuencia")
+        val job = GlobalScope.launch(Dispatchers.Main) {
+            secuenciaBotones()
+
+        }
 
         Log.d("Estado", "Secuencia ejecutada")
         Toast.makeText(this, "repite la secuencia", Toast.LENGTH_SHORT).show()
+    }
+
+    suspend fun secuenciaBotones(){
+        var secuencia :Int =1
+
     }
 }
