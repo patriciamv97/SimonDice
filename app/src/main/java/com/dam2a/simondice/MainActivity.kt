@@ -26,7 +26,8 @@ class MainActivity : AppCompatActivity() {
     var amarillo: Button? = null
     var verde: Button? = null
     var azul: Button? = null
-
+    var listaRandom :Array <Int> = arrayOf()
+    val secuencia: MutableList<Int> = listaRandom.toMutableList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -88,14 +89,15 @@ class MainActivity : AppCompatActivity() {
         arrayBotones[1] = findViewById(R.id.verde)
         arrayBotones[2] = findViewById(R.id.amarillo)
         arrayBotones[3] = findViewById(R.id.azul)
-        var secuencia :Array <Int> = arrayOf()
         val random = (0 until 3).random()
-        secuencia = arrayOf(random)
-         for (i in 1..ronda) {
+        secuencia.add(random)
+        val tamanho = ronda-1
+         for (i in 0..tamanho) {
+             Log.d("estado",""+secuencia[i])
              delay(500)
-             arrayBotones[ronda]?.setBackgroundColor(Color.WHITE)
+             arrayBotones[secuencia[i]]?.setBackgroundColor(Color.WHITE)
              delay(500)
-             arrayBotones[ronda]?.setBackgroundColor(Color.parseColor(colores[ronda]))
+             arrayBotones[secuencia[i]]?.setBackgroundColor(Color.parseColor(colores[secuencia[i]]))
 
         }
 
