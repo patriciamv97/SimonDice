@@ -32,12 +32,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         empezarJugar = findViewById(R.id.jugar)
+        /*
         rojo = findViewById(R.id.rojo)
         amarillo = findViewById(R.id.amarillo)
         verde = findViewById(R.id.verde)
         azul = findViewById(R.id.azul)
         //Cuando clikas el botón se muestra la ronda
-
+*/
         empezarJugar?.setOnClickListener {
 
             // mostrarRonda(empezarJugar)
@@ -89,7 +90,7 @@ class MainActivity : AppCompatActivity() {
         arrayBotones[1] = findViewById(R.id.verde)
         arrayBotones[2] = findViewById(R.id.amarillo)
         arrayBotones[3] = findViewById(R.id.azul)
-        val random = (0 until 3).random()
+        val random = (0 ..3).random()
         secuencia.add(random)
         val tamanho = ronda-1
          for (i in 0..tamanho) {
