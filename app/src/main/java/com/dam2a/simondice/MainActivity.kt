@@ -22,6 +22,8 @@ class MainActivity : AppCompatActivity() {
     var ronda: Int = 0
     //Inicamos contador para comprobar la ronda
     var indice : Int =0
+    // Iniciamos una variable de control para comprobar la secuencia
+    var resultado :Boolean = true
     // Asignamos el id de los botones a una variable
     var empezarJugar: Button? = null
     var rojo: Button? = null
@@ -109,62 +111,35 @@ class MainActivity : AppCompatActivity() {
        rojo?.setOnClickListener {
            comprobar.add(0)
 
-            if(comprobar[indice]!=secuencia[indice]){
-             Toast.makeText(this,"Fin del juego",Toast.LENGTH_SHORT).show()
-                empezarJugar?.visibility = Button.VISIBLE
-                ronda =0
-
-
-            }else{
-                ejecutarSecuencia()
-                ronda++
-
-            }
+           resultado = comprobar[indice] == secuencia[indice]
            indice++
        }
        verde?.setOnClickListener {
            comprobar.add(1)
 
-           if(comprobar[indice]!=secuencia[indice]){
-               Toast.makeText(this,"Fin del juego",Toast.LENGTH_SHORT).show()
-               empezarJugar?.visibility = Button.VISIBLE
-               ronda =0
-
-           }else{
-               ronda++
-               ejecutarSecuencia()
-           }
+           resultado = comprobar[indice] == secuencia[indice]
            indice++
        }
        amarillo?.setOnClickListener{
            comprobar.add(2)
-
-           if(comprobar[indice]!=secuencia[indice]){
-               Toast.makeText(this,"Fin del juego",Toast.LENGTH_SHORT).show()
-               empezarJugar?.visibility = Button.VISIBLE
-               ronda =0
-
-           }else{
-               ronda++
-               ejecutarSecuencia()
-           }
+           resultado = comprobar[indice] == secuencia[indice]
            indice++
 
        }
        azul?.setOnClickListener {
            comprobar.add(3)
-
-           if(comprobar[indice]!=secuencia[indice]){
-               Toast.makeText(this,"Fin del juego",Toast.LENGTH_SHORT).show()
-               empezarJugar?.visibility = Button.VISIBLE
-               ronda =0
-
-           }else{
-               ronda++
-               ejecutarSecuencia()
-           }
+           resultado = comprobar[indice] == secuencia[indice]
            indice++
        }
+        if(!resultado){
+            Toast.makeText(this,"Fin del juego",Toast.LENGTH_SHORT).show()
+            ronda =0
+            empezarJugar?.visibility = Button.VISIBLE
+
+
+        }else{
+            ejecutarSecuencia()
+        }
         Log.d("Estado", "Secuencia comprobada")
 
     }
