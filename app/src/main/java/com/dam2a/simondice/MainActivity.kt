@@ -5,6 +5,7 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -19,27 +20,32 @@ class MainActivity : AppCompatActivity() {
 
     // Inicicamos la ronda
     var ronda: Int = 0
-
+    //Inicamos contador para comprobar la ronda
+    var indice : Int =0
     // Asignamos el id de los botones a una variable
     var empezarJugar: Button? = null
     var rojo: Button? = null
     var amarillo: Button? = null
     var verde: Button? = null
     var azul: Button? = null
-    var listaRandom :Array <Int> = arrayOf()
-    val secuencia: MutableList<Int> = listaRandom.toMutableList()
+    val arrayBotones = hashMapOf<Int, Button>()
+    val secuencia: MutableList<Int> = arrayListOf<Int>()
+    val comprobar: MutableList<Int> = arrayListOf<Int>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         empezarJugar = findViewById(R.id.jugar)
+        arrayBotones[0] = findViewById(R.id.rojo)
+        arrayBotones[1] = findViewById(R.id.verde)
+        arrayBotones[2] = findViewById(R.id.amarillo)
+        arrayBotones[3] = findViewById(R.id.azul)
 
         //Cuando clikas el botón se muestra la ronda
 
         empezarJugar?.setOnClickListener {
-
-            // mostrarRonda(empezarJugar)
             mostrarRonda()
             ejecutarSecuencia()
+            comprobarSecuencia(secuencia,comprobar)
 
         }
 
@@ -56,6 +62,7 @@ class MainActivity : AppCompatActivity() {
         //Hacemos visible el numero de la ronda cuando el jugador pulsa jugar
         rondaTextView.visibility = TextView.VISIBLE
         // boton.visibility = TextView.INVISIBLE
+        empezarJugar?.visibility = Button.INVISIBLE
         //Incrementamos una unida la ronda cada vez que se ejecute el metodo mostrarRonda
         ronda++
         //Le enviamos la ronda incrementada al TextView para que se muestre
@@ -65,6 +72,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun ejecutarSecuencia() {
         Log.d("Estado", "Ejecutando secuencia")
+
         val job = GlobalScope.launch(Dispatchers.Main) {
             secuenciaBotones()
 
@@ -77,28 +85,87 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    suspend fun secuenciaBotones() {
 
-    suspend fun secuenciaBotones(){
-
-        val colores =arrayOf("#EC4849","#008000","#FFFF00","#3498DB")
-        val arrayBotones = hashMapOf<Int,Button>()
-        arrayBotones[0] =  findViewById(R.id.rojo)
-        arrayBotones[1] = findViewById(R.id.verde)
-        arrayBotones[2] = findViewById(R.id.amarillo)
-        arrayBotones[3] = findViewById(R.id.azul)
+        val colores = arrayOf("#D72B00", "#64DD17", "#FFAB00", "#304FFE")
         val random = (0..3).random()
         secuencia.add(random)
-        val tamanho = ronda-1
-         for (i in 0..tamanho) {
-             Log.d("estado",""+secuencia[i])
-             delay(500)
-             arrayBotones[secuencia[i]]?.setBackgroundColor(Color.WHITE)
-             delay(500)
-             arrayBotones[secuencia[i]]?.setBackgroundColor(Color.parseColor(colores[secuencia[i]]))
+        val tamanho = ronda - 1
+        for (i in 0..tamanho) {
+            Log.d("estado", "" + secuencia[i])
+            delay(500)
+            arrayBotones[secuencia[i]]?.setBackgroundColor(Color.WHITE)
+            delay(500)
+            arrayBotones[secuencia[i]]?.setBackgroundColor(Color.parseColor(colores[secuencia[i]]))
 
         }
 
 
+    }
+
+    private fun comprobarSecuencia(secuencia: MutableList<Int>, comprobar: MutableList<Int>) {
+        Log.d("Estado", "Comprobando secuencia")
+
+       rojo?.setOnClickListener {
+           comprobar.add(0)
+
+            if(comprobar[indice]!=secuencia[indice]){
+             Toast.makeText(this,"Fin del juego",Toast.LENGTH_SHORT).show()
+                empezarJugar?.visibility = Button.VISIBLE
+                ronda =0
+
+
+            }else{
+                ejecutarSecuencia()
+                ronda++
+
+            }
+           indice++
+       }
+       verde?.setOnClickListener {
+           comprobar.add(1)
+
+           if(comprobar[indice]!=secuencia[indice]){
+               Toast.makeText(this,"Fin del juego",Toast.LENGTH_SHORT).show()
+               empezarJugar?.visibility = Button.VISIBLE
+               ronda =0
+
+           }else{
+               ronda++
+               ejecutarSecuencia()
+           }
+           indice++
+       }
+       amarillo?.setOnClickListener{
+           comprobar.add(2)
+
+           if(comprobar[indice]!=secuencia[indice]){
+               Toast.makeText(this,"Fin del juego",Toast.LENGTH_SHORT).show()
+               empezarJugar?.visibility = Button.VISIBLE
+               ronda =0
+
+           }else{
+               ronda++
+               ejecutarSecuencia()
+           }
+           indice++
+
+       }
+       azul?.setOnClickListener {
+           comprobar.add(3)
+
+           if(comprobar[indice]!=secuencia[indice]){
+               Toast.makeText(this,"Fin del juego",Toast.LENGTH_SHORT).show()
+               empezarJugar?.visibility = Button.VISIBLE
+               ronda =0
+
+           }else{
+               ronda++
+               ejecutarSecuencia()
+           }
+           indice++
+       }
+        Log.d("Estado", "Secuencia comprobada")
 
     }
 
