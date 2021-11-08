@@ -30,12 +30,17 @@ class MainActivity : AppCompatActivity() {
     var amarillo: Button? = null
     var verde: Button? = null
     var azul: Button? = null
+    // Declaramos listas mutables para
     val arrayBotones = hashMapOf<Int, Button>()
     val secuencia: MutableList<Int> = arrayListOf<Int>()
     val comprobar: MutableList<Int> = arrayListOf<Int>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
+
         empezarJugar = findViewById(R.id.jugar)
         arrayBotones[0] = findViewById(R.id.rojo)
         arrayBotones[1] = findViewById(R.id.verde)
@@ -47,6 +52,31 @@ class MainActivity : AppCompatActivity() {
         empezarJugar?.setOnClickListener {
             mostrarRonda()
             ejecutarSecuencia()
+            rojo?.setOnClickListener {
+                Toast.makeText(this, "rojo", Toast.LENGTH_SHORT).show()
+                comprobar.add(0)
+                resultado = comprobar[indice] == secuencia[indice]
+                indice++
+            }
+            verde?.setOnClickListener {
+                Toast.makeText(this, "verde", Toast.LENGTH_SHORT).show()
+                comprobar.add(1)
+                resultado = comprobar[indice] == secuencia[indice]
+                indice++
+            }
+            amarillo?.setOnClickListener{
+                Toast.makeText(this, "amarillo", Toast.LENGTH_SHORT).show()
+                comprobar.add(2)
+                resultado = comprobar[indice] == secuencia[indice]
+                indice++
+
+            }
+            azul?.setOnClickListener {
+                Toast.makeText(this, "azul", Toast.LENGTH_SHORT).show()
+                comprobar.add(3)
+                resultado = comprobar[indice] == secuencia[indice]
+                indice++
+            }
             comprobarSecuencia(secuencia,comprobar)
 
         }
@@ -77,11 +107,7 @@ class MainActivity : AppCompatActivity() {
 
         val job = GlobalScope.launch(Dispatchers.Main) {
             secuenciaBotones()
-
         }
-
-
-
         Log.d("Estado", "Secuencia ejecutada")
         Toast.makeText(this, "repite la secuencia", Toast.LENGTH_SHORT).show()
     }
@@ -107,36 +133,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun comprobarSecuencia(secuencia: MutableList<Int>, comprobar: MutableList<Int>) {
         Log.d("Estado", "Comprobando secuencia")
-
-       rojo?.setOnClickListener {
-           comprobar.add(0)
-
-           resultado = comprobar[indice] == secuencia[indice]
-           indice++
-       }
-       verde?.setOnClickListener {
-           comprobar.add(1)
-
-           resultado = comprobar[indice] == secuencia[indice]
-           indice++
-       }
-       amarillo?.setOnClickListener{
-           comprobar.add(2)
-           resultado = comprobar[indice] == secuencia[indice]
-           indice++
-
-       }
-       azul?.setOnClickListener {
-           comprobar.add(3)
-           resultado = comprobar[indice] == secuencia[indice]
-           indice++
-       }
         if(!resultado){
             Toast.makeText(this,"Fin del juego",Toast.LENGTH_SHORT).show()
             ronda =0
             empezarJugar?.visibility = Button.VISIBLE
-
-
         }else{
             ejecutarSecuencia()
         }
