@@ -20,6 +20,8 @@ class MainActivity : AppCompatActivity() {
 
     // Inicicamos la ronda
     var ronda: Int = 0
+    var rondaTextView: TextView ?=null
+
     //Inicamos contador para comprobar la ronda
     var indice : Int =0
     // Iniciamos una variable de control para comprobar la secuencia
@@ -32,73 +34,88 @@ class MainActivity : AppCompatActivity() {
     var azul: Button? = null
     // Declaramos listas mutables para
     val arrayBotones = hashMapOf<Int, Button>()
-    val secuencia: MutableList<Int> = arrayListOf<Int>()
-    val comprobar: MutableList<Int> = arrayListOf<Int>()
+    var secuencia: MutableList<Int> = arrayListOf<Int>()
+    var comprobar: MutableList<Int> = arrayListOf<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
-
+        rondaTextView = findViewById(R.id.ronda)
         empezarJugar = findViewById(R.id.jugar)
+        rojo = findViewById(R.id.rojo)
+        verde = findViewById(R.id.verde)
+        amarillo= findViewById(R.id.amarillo)
+        azul = findViewById(R.id.azul)
         arrayBotones[0] = findViewById(R.id.rojo)
         arrayBotones[1] = findViewById(R.id.verde)
         arrayBotones[2] = findViewById(R.id.amarillo)
         arrayBotones[3] = findViewById(R.id.azul)
+
 
         //Cuando clikas el botón se muestra la ronda
 
         empezarJugar?.setOnClickListener {
             mostrarRonda()
             ejecutarSecuencia()
-            rojo?.setOnClickListener {
-                Toast.makeText(this, "rojo", Toast.LENGTH_SHORT).show()
-                comprobar.add(0)
-                resultado = comprobar[indice] == secuencia[indice]
-                indice++
-            }
-            verde?.setOnClickListener {
-                Toast.makeText(this, "verde", Toast.LENGTH_SHORT).show()
-                comprobar.add(1)
-                resultado = comprobar[indice] == secuencia[indice]
-                indice++
-            }
-            amarillo?.setOnClickListener{
-                Toast.makeText(this, "amarillo", Toast.LENGTH_SHORT).show()
-                comprobar.add(2)
-                resultado = comprobar[indice] == secuencia[indice]
-                indice++
+        }
+        rojo?.setOnClickListener {
+            Toast.makeText(this, "rojo", Toast.LENGTH_SHORT).show()
+            comprobar.add(0)
+            resultado = comprobar[indice] == secuencia[indice]
+            indice++
+            comprobarSecuencia()
 
-            }
-            azul?.setOnClickListener {
-                Toast.makeText(this, "azul", Toast.LENGTH_SHORT).show()
-                comprobar.add(3)
-                resultado = comprobar[indice] == secuencia[indice]
-                indice++
-            }
-            comprobarSecuencia(secuencia,comprobar)
 
         }
+        verde?.setOnClickListener {
+            Toast.makeText(this, "verde", Toast.LENGTH_SHORT).show()
+            comprobar.add(1)
+            resultado = comprobar[indice] == secuencia[indice]
+            indice++
+
+            comprobarSecuencia()
+
+        }
+        amarillo?.setOnClickListener{
+            Toast.makeText(this, "amarillo", Toast.LENGTH_SHORT).show()
+            comprobar.add(2)
+            resultado = comprobar[indice] == secuencia[indice]
+            indice++
+            comprobarSecuencia()
+
+
+
+        }
+        azul?.setOnClickListener {
+            Toast.makeText(this, "azul", Toast.LENGTH_SHORT).show()
+            comprobar.add(3)
+            resultado = comprobar[indice] == secuencia[indice]
+            indice++
+
+            comprobarSecuencia()
+
+        }
+        Log.d("Estado", "Botontes comprobados" )
+
+
 
     }
 
-    // private fun mostrarRonda(boton : Button) {
     private fun mostrarRonda() {
         //Asigamos a la variable tituloTexView el id del textView titulo
         val tituloTextView: TextView = findViewById(R.id.titulo)
         //Hacemos visible el titulo Ronda cuando el jugador pulsa jugar
         tituloTextView.visibility = TextView.VISIBLE
         // Asignamos el id del TQ   TextView ronda a la variable rondaTextView
-        val rondaTextView: TextView = findViewById(R.id.ronda)
         //Hacemos visible el numero de la ronda cuando el jugador pulsa jugar
-        rondaTextView.visibility = TextView.VISIBLE
-        // boton.visibility = TextView.INVISIBLE
+        rondaTextView?.visibility = TextView.VISIBLE
         empezarJugar?.visibility = Button.INVISIBLE
         //Incrementamos una unida la ronda cada vez que se ejecute el metodo mostrarRonda
         ronda++
         //Le enviamos la ronda incrementada al TextView para que se muestre
-        rondaTextView.text = ronda.toString()
+        rondaTextView?.text = ronda.toString()
         Log.d("Estado", "Mostrando ronda " + ronda.toString())
     }
 
@@ -131,13 +148,18 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun comprobarSecuencia(secuencia: MutableList<Int>, comprobar: MutableList<Int>) {
+    private fun comprobarSecuencia() {
         Log.d("Estado", "Comprobando secuencia")
         if(!resultado){
             Toast.makeText(this,"Fin del juego",Toast.LENGTH_SHORT).show()
             ronda =0
+            secuencia = arrayListOf()
+            comprobar = arrayListOf()
             empezarJugar?.visibility = Button.VISIBLE
         }else{
+            ronda++
+            rondaTextView?.text = ronda.toString()
+
             ejecutarSecuencia()
         }
         Log.d("Estado", "Secuencia comprobada")
