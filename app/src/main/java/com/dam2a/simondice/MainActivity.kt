@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
     var rondaTextView: TextView ?=null
 
     //Inicamos contador para comprobar la ronda
-    var indice : Int =0
+    var indice : Int =1
     // Iniciamos una variable de control para comprobar la secuencia
     var resultado :Boolean = true
     // Asignamos el id de los botones a una variable
@@ -62,40 +62,79 @@ class MainActivity : AppCompatActivity() {
         }
         rojo?.setOnClickListener {
             Toast.makeText(this, "rojo", Toast.LENGTH_SHORT).show()
-            comprobar.add(0)
-            resultado = comprobar[indice] == secuencia[indice]
-            indice++
-            comprobarSecuencia()
 
+            if(indice>=1) {
+                comprobar = arrayListOf()
+            }
+            comprobar.add(0)
+            if(indice !=0){
+                indice--
+                resultado = comprobar[indice] == secuencia[indice]
+            }else {
+                indice++
+                resultado = comprobar[indice] == secuencia[indice]
+            }
+            if(comprobar.size==secuencia.size) {
+                indice++
+                comprobarSecuencia()
+            }
 
         }
         verde?.setOnClickListener {
             Toast.makeText(this, "verde", Toast.LENGTH_SHORT).show()
+            if(indice>=1) {
+                comprobar = arrayListOf()
+            }
             comprobar.add(1)
-            resultado = comprobar[indice] == secuencia[indice]
-            indice++
 
-            comprobarSecuencia()
-
+            if(indice !=0){
+                indice--
+                resultado = comprobar[indice] == secuencia[indice]
+            }else {
+                indice++
+                resultado = comprobar[indice] == secuencia[indice]
+            }
+            if(comprobar.size==secuencia.size) {
+                indice++
+                comprobarSecuencia()
+            }
         }
         amarillo?.setOnClickListener{
             Toast.makeText(this, "amarillo", Toast.LENGTH_SHORT).show()
+            if(indice>=1) {
+                comprobar = arrayListOf()
+            }
             comprobar.add(2)
-            resultado = comprobar[indice] == secuencia[indice]
-            indice++
-            comprobarSecuencia()
-
-
+            if(indice !=0){
+                indice--
+                resultado = comprobar[indice] == secuencia[indice]
+            }else {
+                indice++
+                resultado = comprobar[indice] == secuencia[indice]
+            }
+            if(comprobar.size==secuencia.size) {
+                indice++
+                comprobarSecuencia()
+            }
 
         }
         azul?.setOnClickListener {
             Toast.makeText(this, "azul", Toast.LENGTH_SHORT).show()
+            if(indice>=1) {
+                comprobar = arrayListOf()
+            }
             comprobar.add(3)
-            resultado = comprobar[indice] == secuencia[indice]
-            indice++
-
-            comprobarSecuencia()
-
+            if(indice !=0){
+                indice--
+                resultado = comprobar[indice] == secuencia[indice]
+            }else {
+                indice++
+                resultado = comprobar[indice] == secuencia[indice]
+            }
+            if(comprobar.size==secuencia.size) {
+                indice++
+                comprobarSecuencia()
+            }
         }
         Log.d("Estado", "Botontes comprobados" )
 
@@ -159,7 +198,6 @@ class MainActivity : AppCompatActivity() {
         }else{
             ronda++
             rondaTextView?.text = ronda.toString()
-
             ejecutarSecuencia()
         }
         Log.d("Estado", "Secuencia comprobada")
