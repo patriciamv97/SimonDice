@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity() {
 
     suspend fun secuenciaBotones(){
 
-        val colores =arrayOf("#EC4849","#008000","#FFFF00","#3498DB")
+        val colores =arrayOf("#D72B00","#64DD17","#FFAB00","#304FFE")
         val arrayBotones = hashMapOf<Int,Button>()
         arrayBotones[0] =  findViewById(R.id.rojo)
         arrayBotones[1] = findViewById(R.id.verde)
