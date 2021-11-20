@@ -15,23 +15,24 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
-
 class MainActivity : AppCompatActivity() {
 
     // Inicicamos la ronda
     var ronda: Int = 0
-    var rondaTextView: TextView ?=null
+    var rondaTextView: TextView? = null
 
     //Inicamos contador para comprobar la ronda
-    var indice : Int =1
+    var indice : Int =0
     // Iniciamos una variable de control para comprobar la secuencia
-    var resultado :Boolean = true
+    var resultado: Boolean = true
+
     // Asignamos el id de los botones a una variable
     var empezarJugar: Button? = null
     var rojo: Button? = null
     var amarillo: Button? = null
     var verde: Button? = null
     var azul: Button? = null
+
     // Declaramos listas mutables para
     val arrayBotones = hashMapOf<Int, Button>()
     var secuencia: MutableList<Int> = arrayListOf<Int>()
@@ -46,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         empezarJugar = findViewById(R.id.jugar)
         rojo = findViewById(R.id.rojo)
         verde = findViewById(R.id.verde)
-        amarillo= findViewById(R.id.amarillo)
+        amarillo = findViewById(R.id.amarillo)
         azul = findViewById(R.id.azul)
         arrayBotones[0] = findViewById(R.id.rojo)
         arrayBotones[1] = findViewById(R.id.verde)
@@ -62,82 +63,59 @@ class MainActivity : AppCompatActivity() {
         }
         rojo?.setOnClickListener {
             Toast.makeText(this, "rojo", Toast.LENGTH_SHORT).show()
-
-            if(indice>=1) {
-                comprobar = arrayListOf()
-            }
             comprobar.add(0)
-            if(indice !=0){
-                indice--
-                resultado = comprobar[indice] == secuencia[indice]
-            }else {
-                indice++
-                resultado = comprobar[indice] == secuencia[indice]
+            indice = comprobar.size - 1
+            resultado = comprobar[indice] == secuencia[indice]
+
+            if (comprobar.size==ronda){
+                comprobarSecuencia()
             }
-            if(comprobar.size==secuencia.size) {
-                indice++
+            if (!resultado){
                 comprobarSecuencia()
             }
 
         }
         verde?.setOnClickListener {
             Toast.makeText(this, "verde", Toast.LENGTH_SHORT).show()
-            if(indice>=1) {
-                comprobar = arrayListOf()
-            }
             comprobar.add(1)
+            indice = comprobar.size - 1
+            resultado = comprobar[indice] == secuencia[indice]
 
-            if(indice !=0){
-                indice--
-                resultado = comprobar[indice] == secuencia[indice]
-            }else {
-                indice++
-                resultado = comprobar[indice] == secuencia[indice]
+            if (comprobar.size==ronda){
+                comprobarSecuencia()
             }
-            if(comprobar.size==secuencia.size) {
-                indice++
+            if (!resultado){
                 comprobarSecuencia()
             }
         }
-        amarillo?.setOnClickListener{
+        amarillo?.setOnClickListener {
             Toast.makeText(this, "amarillo", Toast.LENGTH_SHORT).show()
-            if(indice>=1) {
-                comprobar = arrayListOf()
-            }
             comprobar.add(2)
-            if(indice !=0){
-                indice--
-                resultado = comprobar[indice] == secuencia[indice]
-            }else {
-                indice++
-                resultado = comprobar[indice] == secuencia[indice]
+            indice = comprobar.size - 1
+            resultado = comprobar[indice] == secuencia[indice]
+
+            if (comprobar.size==ronda){
+                comprobarSecuencia()
             }
-            if(comprobar.size==secuencia.size) {
-                indice++
+            if (!resultado){
                 comprobarSecuencia()
             }
 
         }
         azul?.setOnClickListener {
             Toast.makeText(this, "azul", Toast.LENGTH_SHORT).show()
-            if(indice>=1) {
-                comprobar = arrayListOf()
-            }
             comprobar.add(3)
-            if(indice !=0){
-                indice--
-                resultado = comprobar[indice] == secuencia[indice]
-            }else {
-                indice++
-                resultado = comprobar[indice] == secuencia[indice]
+            indice = comprobar.size - 1
+            resultado = comprobar[indice] == secuencia[indice]
+
+            if (comprobar.size==ronda){
+                comprobarSecuencia()
             }
-            if(comprobar.size==secuencia.size) {
-                indice++
+            if (!resultado){
                 comprobarSecuencia()
             }
         }
-        Log.d("Estado", "Botontes comprobados" )
-
+        Log.d("Estado", "Botontes comprobados")
 
 
     }
@@ -189,14 +167,16 @@ class MainActivity : AppCompatActivity() {
 
     private fun comprobarSecuencia() {
         Log.d("Estado", "Comprobando secuencia")
-        if(!resultado){
-            Toast.makeText(this,"Fin del juego",Toast.LENGTH_SHORT).show()
-            ronda =0
+        if (!resultado) {
+            Toast.makeText(this, "Fin del juego", Toast.LENGTH_SHORT).show()
+            ronda = 0
+            rondaTextView?.text = ronda.toString()
             secuencia = arrayListOf()
             comprobar = arrayListOf()
             empezarJugar?.visibility = Button.VISIBLE
-        }else{
+        } else {
             ronda++
+            comprobar = arrayListOf()
             rondaTextView?.text = ronda.toString()
             ejecutarSecuencia()
         }
