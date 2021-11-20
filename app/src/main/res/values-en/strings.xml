@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SimonSay</string>
+    <string name="rojo">Red</string>
+    <string name="jugar">Play</string>
+    <string name="amarillo">Yellow</string>
+    <string name="verde">Green</string>
+    <string name="azul">Blue</string>
+    <!--Toast-->
+    <string name="repetir">Repeat the sequence</string>
+    <string name="fin">Game over</string>
+</resources>

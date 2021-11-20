@@ -5,5 +5,8 @@
     <string name="amarillo">Amarillo</string>
     <string name="verde">Verde</string>
     <string name="azul">Azul</string>
+    <!--Toast-->
+    <string name="repetir">Repite la secuencia</string>
+    <string name="fin">Fin del juego</string>
 
 </resources>

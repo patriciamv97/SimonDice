@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SimonDi</string>
+    <string name="rojo">Vermello</string>
+    <string name="jugar">Xogar</string>
+    <string name="amarillo">Amarelo</string>
+    <string name="verde">Verde</string>
+    <string name="azul">Azul</string>
+    <!--Toast-->
+    <string name="repetir">Repite a secuencia</string>
+    <string name="fin">Fin do xogo!</string>
+
+</resources>
