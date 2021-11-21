@@ -17,13 +17,14 @@ class MainActivity : AppCompatActivity() {
 
     // Inicicamos la ronda
     var ronda: Int = 0
-
     // Instaciamos las variables del layout
     var rondaTextView: TextView? = null
     var tituloTextView: TextView? = null
 
     //Inicamos un indice  para poder acceder a los elementos de los arraylist comprobar y secuencia
     var indice: Int = 0
+    // Declaramos una variable de control para que no rompa el programa si el usuario pulsa cualquier boton antes del boton jugar
+    var jugarPulsado = false
 
     // Iniciamos una variable de control para comprobar la secuencia
     var resultado: Boolean = true
@@ -65,8 +66,10 @@ class MainActivity : AppCompatActivity() {
         // Añadimos los mensajes al hashMap
         mensajeUsuario[0]= getString(R.string.repetir)
         mensajeUsuario[1]= getString(R.string.fin)
+        mensajeUsuario[2]= getString(R.string.pulsaJugar)
 
         empezarJugar?.setOnClickListener {
+            jugarPulsado = true
             //Hacemos visible el titulo Ronda cuando el jugador pulsa jugar
             tituloTextView?.visibility = TextView.VISIBLE
             //Hacemos visible el número de la ronda cuando el jugador pulsa jugar
@@ -79,53 +82,73 @@ class MainActivity : AppCompatActivity() {
         }
 
         rojo.setOnClickListener {
-            comprobar.add(0)
-            indice = comprobar.size - 1
-            resultado = comprobar[indice] == secuencia[indice]
+            if (jugarPulsado==true) {
+                comprobar.add(0)
+                indice = comprobar.size - 1
+                resultado = comprobar[indice] == secuencia[indice]
 
-            if (comprobar.size == ronda) {
-                comprobarSecuencia()
-            }
-            if (!resultado && comprobar.size != ronda) {
-                comprobarSecuencia()
+                if (comprobar.size == ronda) {
+                    comprobarSecuencia()
+                }
+                if (!resultado && comprobar.size != ronda) {
+                    comprobarSecuencia()
+                }
+            }else{
+                Toast.makeText(this,mensajeUsuario[2],Toast.LENGTH_SHORT).show()
             }
 
-        }
+            }
+
         verde.setOnClickListener {
-            comprobar.add(1)
-            indice = comprobar.size - 1
-            resultado = comprobar[indice] == secuencia[indice]
+            if(jugarPulsado==true) {
+                comprobar.add(1)
+                indice = comprobar.size - 1
+                resultado = comprobar[indice] == secuencia[indice]
 
-            if (comprobar.size == ronda) {
-                comprobarSecuencia()
-            }
-            if (!resultado && comprobar.size != ronda) {
-                comprobarSecuencia()
+                if (comprobar.size == ronda) {
+                    comprobarSecuencia()
+                }
+                if (!resultado && comprobar.size != ronda) {
+                    comprobarSecuencia()
+                }
+            }else{
+                Toast.makeText(this,mensajeUsuario[2],Toast.LENGTH_SHORT).show()
+
             }
         }
         amarillo.setOnClickListener {
-            comprobar.add(2)
-            indice = comprobar.size - 1
-            resultado = comprobar[indice] == secuencia[indice]
+            if (jugarPulsado==true) {
+                comprobar.add(2)
+                indice = comprobar.size - 1
+                resultado = comprobar[indice] == secuencia[indice]
 
-            if (comprobar.size == ronda) {
-                comprobarSecuencia()
-            }
-            if (!resultado && comprobar.size != ronda) {
-                comprobarSecuencia()
+                if (comprobar.size == ronda) {
+                    comprobarSecuencia()
+                }
+                if (!resultado && comprobar.size != ronda) {
+                    comprobarSecuencia()
+                }
+            }else{
+                Toast.makeText(this,mensajeUsuario[2],Toast.LENGTH_SHORT).show()
+
             }
 
         }
         azul.setOnClickListener {
-            comprobar.add(3)
-            indice = comprobar.size - 1
-            resultado = comprobar[indice] == secuencia[indice]
+            if (jugarPulsado==true) {
+                comprobar.add(3)
+                indice = comprobar.size - 1
+                resultado = comprobar[indice] == secuencia[indice]
 
-            if (comprobar.size == ronda) {
-                comprobarSecuencia()
-            }
-            if (!resultado && comprobar.size != ronda) {
-                comprobarSecuencia()
+                if (comprobar.size == ronda) {
+                    comprobarSecuencia()
+                }
+                if (!resultado && comprobar.size != ronda) {
+                    comprobarSecuencia()
+                }
+            }else{
+                Toast.makeText(this,mensajeUsuario[2],Toast.LENGTH_SHORT).show()
+
             }
         }
         Log.d("Estado", "Botontes comprobados")
@@ -187,7 +210,7 @@ class MainActivity : AppCompatActivity() {
             empezarJugar?.visibility = Button.VISIBLE
 
         } else {
-            // Resteamos el arraylist comprobar
+            // Resteamos el arraylist comprobar cada nueva ronda
             comprobar = arrayListOf()
             mostrarRonda()
 

@@ -9,4 +9,6 @@
     <!--Toast-->
     <string name="repetir">Repeat the sequence</string>
     <string name="fin">Game over</string>
+    <string name="pulsaJugar">Press play</string>
+
 </resources>
