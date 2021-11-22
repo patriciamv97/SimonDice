@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">SimonDi</string>
+    <string name="titulo">SimonDi</string>
     <string name="rojo">Vermello</string>
     <string name="jugar">Xogar</string>
     <string name="amarillo">Amarelo</string>
