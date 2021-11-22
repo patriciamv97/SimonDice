@@ -9,6 +9,5 @@
     <!--Toast-->
     <string name="repetir">Repeat the sequence</string>
     <string name="fin">Game over</string>
-    <string name="pulsaJugar">Press play</string>
-
+    <string name="secuenciaTerminada">Wait for the sequence to finish</string>
 </resources>

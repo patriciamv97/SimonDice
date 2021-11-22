@@ -7,24 +7,28 @@ import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
+import android.media.MediaPlayer
 
 
 class MainActivity : AppCompatActivity() {
 
     // Inicicamos la ronda
     var ronda: Int = 0
+    var job: Job? = null
+
     // Instaciamos las variables del layout
     var rondaTextView: TextView? = null
     var tituloTextView: TextView? = null
 
     //Inicamos un indice  para poder acceder a los elementos de los arraylist comprobar y secuencia
     var indice: Int = 0
+
     // Declaramos una variable de control para que no rompa el programa si el usuario pulsa cualquier boton antes del boton jugar
     var jugarPulsado = false
+
+    // Declaramos una variable de control para que no rompa el programa si el usuario pulsa cualquier boton antes de que termine de mostrar la secuencia
+    var secuenciaTerminada = false
 
     // Iniciamos una variable de control para comprobar la secuencia
     var resultado: Boolean = true
@@ -36,8 +40,11 @@ class MainActivity : AppCompatActivity() {
     // Declaramos listas mutables para agregar la secuencia de los botones y los botones que se han pulsado
     val arrayBotones = hashMapOf<Int, Button>()
     val mensajeUsuario = hashMapOf<Int, String>()
+    val sonidos = hashMapOf<Int, MediaPlayer>()
     var secuencia: MutableList<Int> = arrayListOf()
     var comprobar: MutableList<Int> = arrayListOf()
+
+    var mediaPlayer: MediaPlayer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -64,11 +71,17 @@ class MainActivity : AppCompatActivity() {
         arrayBotones[3] = azul
 
         // Añadimos los mensajes al hashMap
-        mensajeUsuario[0]= getString(R.string.repetir)
-        mensajeUsuario[1]= getString(R.string.fin)
-        mensajeUsuario[2]= getString(R.string.pulsaJugar)
+        mensajeUsuario[0] = getString(R.string.repetir)
+        mensajeUsuario[1] = getString(R.string.fin)
+        mensajeUsuario[2] = getString(R.string.secuenciaTerminada)
+
+        sonidos[0] = MediaPlayer.create(this, R.raw.sonidoboton)
+        sonidos[1] = MediaPlayer.create(this, R.raw.nelson)
+        sonidos[2] = MediaPlayer.create(this,R.raw.subnormal)
+        sonidos[3] = MediaPlayer.create(this,R.raw.verguenza)
 
         empezarJugar?.setOnClickListener {
+            sonidos[0]?.start()
             jugarPulsado = true
             //Hacemos visible el titulo Ronda cuando el jugador pulsa jugar
             tituloTextView?.visibility = TextView.VISIBLE
@@ -81,79 +94,6 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        rojo.setOnClickListener {
-            if (jugarPulsado==true) {
-                comprobar.add(0)
-                indice = comprobar.size - 1
-                resultado = comprobar[indice] == secuencia[indice]
-
-                if (comprobar.size == ronda) {
-                    comprobarSecuencia()
-                }
-                if (!resultado && comprobar.size != ronda) {
-                    comprobarSecuencia()
-                }
-            }else{
-                Toast.makeText(this,mensajeUsuario[2],Toast.LENGTH_SHORT).show()
-            }
-
-            }
-
-        verde.setOnClickListener {
-            if(jugarPulsado==true) {
-                comprobar.add(1)
-                indice = comprobar.size - 1
-                resultado = comprobar[indice] == secuencia[indice]
-
-                if (comprobar.size == ronda) {
-                    comprobarSecuencia()
-                }
-                if (!resultado && comprobar.size != ronda) {
-                    comprobarSecuencia()
-                }
-            }else{
-                Toast.makeText(this,mensajeUsuario[2],Toast.LENGTH_SHORT).show()
-
-            }
-        }
-        amarillo.setOnClickListener {
-            if (jugarPulsado==true) {
-                comprobar.add(2)
-                indice = comprobar.size - 1
-                resultado = comprobar[indice] == secuencia[indice]
-
-                if (comprobar.size == ronda) {
-                    comprobarSecuencia()
-                }
-                if (!resultado && comprobar.size != ronda) {
-                    comprobarSecuencia()
-                }
-            }else{
-                Toast.makeText(this,mensajeUsuario[2],Toast.LENGTH_SHORT).show()
-
-            }
-
-        }
-        azul.setOnClickListener {
-            if (jugarPulsado==true) {
-                comprobar.add(3)
-                indice = comprobar.size - 1
-                resultado = comprobar[indice] == secuencia[indice]
-
-                if (comprobar.size == ronda) {
-                    comprobarSecuencia()
-                }
-                if (!resultado && comprobar.size != ronda) {
-                    comprobarSecuencia()
-                }
-            }else{
-                Toast.makeText(this,mensajeUsuario[2],Toast.LENGTH_SHORT).show()
-
-            }
-        }
-        Log.d("Estado", "Botontes comprobados")
-
-
     }
 
     private fun mostrarRonda() {
@@ -162,6 +102,7 @@ class MainActivity : AppCompatActivity() {
         ronda++
         //Le enviamos la ronda incrementada al TextView para que se muestre
         rondaTextView?.text = ronda.toString()
+
         Log.d("Estado", "Mostrando ronda $ronda")
         // Ejecutamos la secuencia
         ejecutarSecuencia()
@@ -170,11 +111,14 @@ class MainActivity : AppCompatActivity() {
     private fun ejecutarSecuencia() {
         Log.d("Estado", "Ejecutando secuencia")
 
-        GlobalScope.launch(Dispatchers.Main) {
+        job = GlobalScope.launch(Dispatchers.Main) {
             secuenciaBotones()
+            listernerBotones()
+            //  secuenciaTerminada = true
+
         }
         Log.d("Estado", "Secuencia ejecutada")
-        Toast.makeText(this,mensajeUsuario[0],Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, mensajeUsuario[0], Toast.LENGTH_SHORT).show()
     }
 
 
@@ -191,15 +135,41 @@ class MainActivity : AppCompatActivity() {
             arrayBotones[secuencia[i]]?.setBackgroundColor(Color.parseColor(colores[secuencia[i]]))
 
         }
-
-
+        secuenciaTerminada = true
     }
 
-    private fun comprobarSecuencia() {
+    private fun listernerBotones() {
+        arrayBotones.forEach { (t, u) ->
+            u.setOnClickListener {
+                comprobar.add(t)
+                indice = comprobar.size - 1
+                resultado = comprobar[indice] == secuencia[indice]
+                sonidos[0]?.start()
+                if (comprobar.size == ronda) {
+                    job = GlobalScope.launch(Dispatchers.Main) {
+                        comprobarSecuencia()
+                    }
+                }
+                if (!resultado && comprobar.size != ronda) {
+                    job = GlobalScope.launch(Dispatchers.Main) {
+                        comprobarSecuencia()
+                    }
+                }
+                if(!secuenciaTerminada){
+                    Toast.makeText(this,mensajeUsuario[2],Toast.LENGTH_SHORT).show()
+                }
+            }
+
+        }
+    }
+
+
+    suspend fun comprobarSecuencia() {
         Log.d("Estado", "Comprobando secuencia")
         if (!resultado) {
-            Toast.makeText(this,mensajeUsuario[1],Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, mensajeUsuario[1], Toast.LENGTH_SHORT).show()
             // Ponemos la ronda a 0 por que el juego se termino
+            delay(500)
             ronda = 0
             rondaTextView?.text = ronda.toString()
 
@@ -208,10 +178,11 @@ class MainActivity : AppCompatActivity() {
             comprobar = arrayListOf()
             // Hacemos visible el botón jugar
             empezarJugar?.visibility = Button.VISIBLE
-
+            sonidos[(1..3).random()]?.start()
         } else {
             // Resteamos el arraylist comprobar cada nueva ronda
             comprobar = arrayListOf()
+            delay(500)
             mostrarRonda()
 
 
@@ -221,4 +192,4 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    }
+}

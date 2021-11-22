@@ -9,7 +9,7 @@
     <!--Toast-->
     <string name="repetir">Repite a secuencia</string>
     <string name="fin">Fin do xogo!</string>
-    <string name="pulsaJugar">Pulsa xogar</string>
+    <string name="secuenciaTerminada">Espera a que remate a secuencia</string>
 
 
 </resources>
