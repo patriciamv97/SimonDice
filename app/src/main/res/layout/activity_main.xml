@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="#D50000"
     tools:context=".MainActivity">
 
     <androidx.constraintlayout.widget.Guideline
@@ -14,64 +13,72 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.41" />
 
-    <Button
-        android:id="@+id/rojo"
-        android:layout_width="120dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginBottom="56dp"
-        android:backgroundTint="#D72B00"
-        android:text="@string/rojo"
+    <androidx.appcompat.widget.AppCompatButton
+
+        android:id="@+id/verde"
+        android:layout_width="85dp"
+        android:layout_height="80dp"
+        android:layout_marginEnd="132dp"
+        android:background="@drawable/boton_verde"
+        android:backgroundTint="#64DD17"
         app:layout_constraintBottom_toTopOf="@+id/guideline7"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/rojo" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/rojo"
+        android:layout_width="89dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="132dp"
+        android:layout_marginEnd="2dp"
+        android:background="@drawable/boton_rojo"
+        android:backgroundTint="#D72B00"
+        app:layout_constraintBottom_toTopOf="@+id/guideline7"
+        app:layout_constraintEnd_toStartOf="@+id/verde"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/verde"
-        android:layout_width="120dp"
-        android:layout_height="45dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="56dp"
-        android:backgroundTint="#64DD17"
-        android:text="@string/verde"
-        app:layout_constraintBottom_toTopOf="@+id/guideline7"
-        app:layout_constraintEnd_toEndOf="parent" />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/azul"
+        android:layout_width="85dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="132dp"
+        android:background="@drawable/boton_azul"
+        android:backgroundTint="#304FFE"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/amarillo"
+        app:layout_constraintTop_toBottomOf="@+id/verde" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/amarillo"
-        android:layout_width="120dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="56dp"
+        android:layout_width="88dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="132dp"
+        android:layout_marginEnd="1dp"
+        android:background="@drawable/boton_amarillo"
         android:backgroundTint="#FFAB00"
-        android:text="@string/amarillo"
+        app:layout_constraintEnd_toStartOf="@+id/azul"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rojo" />
-
-    <Button
-        android:id="@+id/azul"
-        android:layout_width="120dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="40dp"
-        android:backgroundTint="#304FFE"
-        android:text="@string/azul"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/verde" />
 
     <Button
         android:id="@+id/jugar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="168dp"
+        android:layout_marginBottom="184dp"
         android:text="@string/jugar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
         android:layout_marginEnd="234dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toStartOf="@+id/verde"
@@ -115,7 +122,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="invisible" />
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

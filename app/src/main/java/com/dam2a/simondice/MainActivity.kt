@@ -1,6 +1,7 @@
 package com.dam2a.simondice
 
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import kotlinx.coroutines.*
 import android.media.MediaPlayer
+import androidx.core.content.res.ResourcesCompat
 
 
 class MainActivity : AppCompatActivity() {
@@ -77,8 +79,8 @@ class MainActivity : AppCompatActivity() {
 
         sonidos[0] = MediaPlayer.create(this, R.raw.sonidoboton)
         sonidos[1] = MediaPlayer.create(this, R.raw.nelson)
-        sonidos[2] = MediaPlayer.create(this,R.raw.subnormal)
-        sonidos[3] = MediaPlayer.create(this,R.raw.verguenza)
+        sonidos[2] = MediaPlayer.create(this, R.raw.subnormal)
+        sonidos[3] = MediaPlayer.create(this, R.raw.verguenza)
 
         empezarJugar?.setOnClickListener {
             sonidos[0]?.start()
@@ -124,15 +126,15 @@ class MainActivity : AppCompatActivity() {
 
     suspend fun secuenciaBotones() {
 
-        val colores = arrayOf("#D72B00", "#64DD17", "#FFAB00", "#304FFE")
         val random = (0..3).random()
         secuencia.add(random)
         val tamanho = ronda - 1
         for (i in 0..tamanho) {
             delay(500)
-            arrayBotones[secuencia[i]]?.setBackgroundColor(Color.WHITE)
+            arrayBotones[secuencia[i]]?.visibility= Button.INVISIBLE
             delay(500)
-            arrayBotones[secuencia[i]]?.setBackgroundColor(Color.parseColor(colores[secuencia[i]]))
+            arrayBotones[secuencia[i]]?.visibility=Button.VISIBLE
+
 
         }
         secuenciaTerminada = true
@@ -155,8 +157,8 @@ class MainActivity : AppCompatActivity() {
                         comprobarSecuencia()
                     }
                 }
-                if(!secuenciaTerminada){
-                    Toast.makeText(this,mensajeUsuario[2],Toast.LENGTH_SHORT).show()
+                if (!secuenciaTerminada) {
+                    Toast.makeText(this, mensajeUsuario[2], Toast.LENGTH_SHORT).show()
                 }
             }
 
