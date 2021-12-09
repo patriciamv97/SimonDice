@@ -1,7 +1,5 @@
 package com.dam2a.simondice
 
-import android.graphics.Color
-import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -10,7 +8,6 @@ import android.widget.TextView
 import android.widget.Toast
 import kotlinx.coroutines.*
 import android.media.MediaPlayer
-import androidx.core.content.res.ResourcesCompat
 
 
 class MainActivity : AppCompatActivity() {
@@ -46,7 +43,6 @@ class MainActivity : AppCompatActivity() {
     var secuencia: MutableList<Int> = arrayListOf()
     var comprobar: MutableList<Int> = arrayListOf()
 
-    var mediaPlayer: MediaPlayer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
