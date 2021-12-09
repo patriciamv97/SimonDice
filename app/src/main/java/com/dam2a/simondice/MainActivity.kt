@@ -127,9 +127,9 @@ class MainActivity : AppCompatActivity() {
         val tamanho = ronda - 1
         for (i in 0..tamanho) {
             delay(500)
-            arrayBotones[secuencia[i]]?.visibility= Button.INVISIBLE
-            delay(500)
-            arrayBotones[secuencia[i]]?.visibility=Button.VISIBLE
+                arrayBotones[secuencia[i]]?.visibility= Button.INVISIBLE
+                delay(500)
+                arrayBotones[secuencia[i]]?.visibility=Button.VISIBLE
 
 
         }
